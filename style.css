@@ -1,0 +1,398 @@
+:root {
+  --paper:#F7F5F0;
+  --ink:#1E1E1E;
+  --stone:#D6D2C4;
+  --amber:#D96B27;
+  --muted:#777269;
+  --white:#fffdf8;
+  --max:1280px;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,textarea { font:inherit; }
+button { color:inherit; }
+a { color:inherit; text-decoration:none; }
+img { display:block; max-width:100%; }
+.container { width:min(calc(100% - 48px), var(--max)); margin:auto; }
+
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(247,245,240,.9);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--stone);
+}
+.nav {
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:12px;
+}
+.monogram {
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--ink);
+  border-radius:50%;
+  font-family:"Instrument Serif",serif;
+  font-size:18px;
+  letter-spacing:0;
+}
+.nav-links { display:flex; gap:28px; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; }
+.nav-links a { position:relative; padding:8px 0; }
+.nav-links a::after {
+  content:""; position:absolute; left:0; bottom:2px; width:0; height:1px;
+  background:var(--amber); transition:width .25s ease;
+}
+.nav-links a:hover::after { width:100%; }
+
+.hero {
+  min-height:calc(100vh - 76px);
+  display:grid;
+  align-items:center;
+  padding:100px 0 120px;
+}
+.hero-grid {
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:70px;
+  align-items:end;
+}
+.eyebrow {
+  color:var(--amber);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero h1 {
+  font-family:"Instrument Serif",Georgia,serif;
+  font-size:clamp(68px,10vw,148px);
+  line-height:.82;
+  font-weight:400;
+  letter-spacing:-.045em;
+  margin:0;
+  max-width:850px;
+}
+.hero h1 em { color:var(--amber); }
+.hero-copy {
+  border-left:1px solid var(--stone);
+  padding:12px 0 12px 30px;
+  max-width:440px;
+}
+.hero-copy p { font-size:17px; line-height:1.75; margin:0 0 28px; }
+.hero-mark {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+}
+.hero-mark::before { content:""; width:42px; height:2px; background:var(--amber); }
+
+.section-head {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:30px;
+  border-top:1px solid var(--stone);
+  padding-top:24px;
+  margin-bottom:52px;
+}
+.section-label { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--amber); font-weight:700; }
+.section-title {
+  font-family:"Instrument Serif",Georgia,serif;
+  font-size:clamp(48px,6vw,86px);
+  font-weight:400;
+  line-height:.9;
+  margin:10px 0 0;
+}
+.section-note { max-width:350px; color:var(--muted); font-size:13px; line-height:1.7; }
+
+.collection { padding:30px 0 130px; }
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:60px 24px;
+  align-items:start;
+}
+.art-card { min-width:0; }
+.art-card { justify-self:start; }
+
+/* Creative "gallery wall" layout (desktop): paintings float at different sizes and heights,
+   some captions run vertically beside the work, others sit below and flip sides. */
+@media (min-width:901px) {
+  .gallery { counter-reset:art; gap:34px 24px; padding-top:20px; }
+  .art-card { position:relative; isolation:isolate; counter-increment:art; }
+  .art-card::before {
+    content:counter(art, decimal-leading-zero);
+    position:absolute; z-index:-1; top:-46px; left:-16px;
+    font-family:"Instrument Serif",Georgia,serif; font-size:104px; line-height:1;
+    color:rgba(196,116,45,.13); pointer-events:none;
+  }
+  .art-card .art-visual { box-shadow:0 18px 34px -16px rgba(40,30,15,.45); }
+  .art-card .art-kicker { display:none; }
+
+  /* Row 1 */
+  .art-card:nth-child(1)  { grid-column:1 / span 5;  grid-row:1; width:86%; margin-top:10px; }
+  .art-card:nth-child(2)  { grid-column:6 / span 3;  grid-row:1; width:92%; margin-top:90px; }
+  .art-card:nth-child(3)  { grid-column:10 / span 3; grid-row:1; width:96%; margin-top:0; }
+  /* Row 2 */
+  .art-card:nth-child(4)  { grid-column:2 / span 4;  grid-row:2; width:100%; margin-top:30px; }
+  .art-card:nth-child(5)  { grid-column:7 / span 6;  grid-row:2; width:100%; margin-top:110px; }
+  /* Row 3 */
+  .art-card:nth-child(6)  { grid-column:1 / span 4;  grid-row:3; width:88%; margin-top:40px; }
+  .art-card:nth-child(7)  { grid-column:6 / span 4;  grid-row:3; width:100%; margin-top:0; }
+  .art-card:nth-child(8)  { grid-column:10 / span 3; grid-row:3; width:100%; margin-top:120px; }
+  /* Row 4 */
+  .art-card:nth-child(9)  { grid-column:2 / span 4;  grid-row:4; width:100%; margin-top:10px; }
+  .art-card:nth-child(10) { grid-column:8 / span 4;  grid-row:4; width:100%; margin-top:70px; }
+
+  /* Vertical captions beside the painting */
+  .art-card:nth-child(2) .art-hit,
+  .art-card:nth-child(7) .art-hit,
+  .art-card:nth-child(10) .art-hit { display:flex; align-items:flex-end; gap:14px; }
+  .art-card:nth-child(2) .art-visual,
+  .art-card:nth-child(7) .art-visual,
+  .art-card:nth-child(10) .art-visual { flex:1 1 auto; min-width:0; }
+  .art-card:nth-child(2) .art-meta,
+  .art-card:nth-child(7) .art-meta,
+  .art-card:nth-child(10) .art-meta {
+    flex:0 0 auto; padding:0; writing-mode:vertical-rl; transform:rotate(180deg);
+    white-space:nowrap; max-height:100%;
+  }
+  .art-card:nth-child(2) .art-meta h3,
+  .art-card:nth-child(7) .art-meta h3,
+  .art-card:nth-child(10) .art-meta h3 { margin:0 0 0 8px; font-size:24px; }
+
+  /* Right-aligned captions below the painting */
+  .art-card:nth-child(3) .art-meta, .art-card:nth-child(3) .art-meta p,
+  .art-card:nth-child(5) .art-meta, .art-card:nth-child(5) .art-meta p,
+  .art-card:nth-child(8) .art-meta, .art-card:nth-child(8) .art-meta p { text-align:right; }
+}
+
+.art-hit {
+  width:100%;
+  border:0;
+  padding:0;
+  background:none;
+  text-align:left;
+  cursor:pointer;
+}
+.art-visual {
+  position:relative;
+  overflow:hidden;
+  background:#ebe7dc;
+  border:1px solid var(--stone);
+}
+.art-visual img {
+  width:100%;
+  height:auto;
+  transition:transform .6s cubic-bezier(.2,.65,.2,1);
+}
+.art-card:hover .art-visual img { transform:scale(1.025); }
+.art-card:focus-visible { outline:2px solid var(--amber); outline-offset:8px; }
+.placeholder-art {
+  aspect-ratio:4/3;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:20px;
+  color:#9a9589;
+  background:
+    linear-gradient(135deg, transparent 49.5%, var(--stone) 50%, transparent 50.5%),
+    linear-gradient(45deg, transparent 49.5%, var(--stone) 50%, transparent 50.5%);
+  background-size:100% 100%;
+}
+.placeholder-art span { font-family:"Instrument Serif",serif; font-size:30px; line-height:.9; text-align:center; }
+.placeholder-art small { font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+.art-meta { padding-top:14px; display:block; text-align:left; }
+.art-kicker { grid-column:1/-1; color:var(--amber); font-size:10px; font-weight:700; letter-spacing:.15em; }
+.art-meta h3 { margin:4px 0 6px; font-family:"Instrument Serif",serif; font-weight:400; font-size:26px; line-height:1.05; }
+.art-meta p { margin:0; color:var(--muted); font-size:11px; line-height:1.6; }
+.art-meta p { text-align:left; }
+
+
+.artist-portrait {
+  position:relative; width:min(100%,340px); margin-top:56px;
+}
+.artist-portrait::before {
+  content:""; position:absolute; inset:0; transform:translate(14px,14px);
+  border:1.5px solid var(--amber); border-radius:999px 999px 0 0; pointer-events:none;
+}
+.artist-portrait .arch {
+  position:relative; aspect-ratio:4/5; overflow:hidden; background:var(--stone);
+  border-radius:999px 999px 0 0;
+}
+.artist-portrait .arch img {
+  width:100%; height:100%; object-fit:cover; object-position:50% 8%; display:block;
+}
+
+.about { padding:130px 0; border-top:1px solid var(--stone); }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:90px; }
+.about-title { font-family:"Instrument Serif",serif; font-size:clamp(52px,7vw,100px); line-height:.86; font-weight:400; margin:0; }
+.about-copy { max-width:560px; }
+.about-copy p { font-size:16px; line-height:1.9; margin:0 0 24px; }
+.pullquote {
+  margin-top:48px; padding:26px 0 0; border-top:1px solid var(--stone);
+  font-family:"Instrument Serif",serif; font-size:30px; line-height:1.15;
+}
+.bio-details { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:44px; }
+.bio-detail { border-top:1px solid var(--stone); padding-top:12px; }
+.bio-detail small { display:block; color:var(--amber); text-transform:uppercase; letter-spacing:.13em; font-size:9px; font-weight:700; margin-bottom:7px; }
+.bio-detail span { font-size:13px; line-height:1.5; }
+
+.inquire {
+  padding:110px 0 50px;
+  border-top:1px solid var(--stone);
+}
+.inquire-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:100px; }
+.inquire h2 {
+  font-family:"Instrument Serif",serif; font-weight:400; font-size:clamp(54px,7vw,100px);
+  line-height:.85; margin:0 0 24px;
+}
+.inquire-copy { font-size:13px; color:var(--muted); line-height:1.8; max-width:350px; }
+.form { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.field { border-bottom:1px solid var(--stone); padding:12px 0; }
+.field.full { grid-column:1/-1; }
+.field label { display:block; color:var(--amber); font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:8px; }
+.field input,.field textarea {
+  width:100%; border:0; outline:0; background:transparent; padding:0;
+  color:var(--ink); font-size:14px;
+}
+.field textarea { min-height:90px; resize:vertical; }
+.submit {
+  grid-column:1/-1; justify-self:start; margin-top:12px;
+  background:var(--amber); color:white; border:0; padding:15px 24px;
+  font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  cursor:pointer;
+}
+footer {
+  padding:34px 0 40px; border-top:1px solid var(--stone);
+  display:flex; justify-content:space-between; gap:20px; color:var(--muted); font-size:10px;
+  text-transform:uppercase; letter-spacing:.1em;
+}
+footer a:hover { color:var(--ink); }
+
+.modal {
+  position:fixed; inset:0; z-index:50; display:none;
+  background:rgba(20,19,17,.94); color:white; overflow:auto;
+}
+.modal.open { display:block; }
+.modal-inner { min-height:100%; padding:35px; display:grid; place-items:center; }
+.modal-panel {
+  width:min(1180px,100%); display:grid; grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);
+  gap:40px; align-items:center;
+}
+.modal-image {
+  background:transparent; border:0; min-height:0;
+  display:flex; justify-content:center; align-items:center;
+}
+.modal-image img {
+  display:block; max-height:78vh; width:auto; max-width:100%; height:auto; object-fit:contain;
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+}
+.modal-placeholder {
+  width:100%; min-height:60vh; display:grid; place-items:center; color:#aaa; text-align:center;
+  font-family:"Instrument Serif",serif; font-size:36px;
+}
+.modal-info { padding:20px 0; }
+.modal-number { color:#ef9a62; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+.modal-info h3 { font-family:"Instrument Serif",serif; font-size:64px; line-height:.88; font-weight:400; margin:14px 0 22px; }
+.modal-info .specs { font-size:11px; line-height:1.9; color:#c9c5bb; border-top:1px solid rgba(255,255,255,.2); border-bottom:1px solid rgba(255,255,255,.2); padding:15px 0; }
+.modal-info p { font-size:13px; line-height:1.8; color:#ddd8cf; }
+.art-detail-section {
+  border-top:1px solid rgba(255,255,255,.16);
+  padding:15px 0 2px;
+}
+.art-detail-section h4 {
+  margin:0 0 8px;
+  color:#ef9a62;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.art-detail-section p {
+  margin:0 0 12px;
+}
+.modal-info {
+  max-height:82vh;
+  overflow-y:auto;
+  padding-right:12px;
+  scrollbar-width:thin;
+}
+.inquire-btn {
+  display:inline-block; background:var(--amber); color:white; padding:14px 20px;
+  font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-top:8px;
+}
+.close {
+  position:fixed; top:24px; right:30px; z-index:55; border:0; background:none; color:white;
+  font-size:28px; cursor:pointer; line-height:1;
+}
+.modal-nav { display:flex; gap:10px; margin-top:16px; }
+.modal-nav button {
+  border:1px solid rgba(255,255,255,.25); background:transparent; color:white;
+  padding:9px 13px; font-size:10px; cursor:pointer;
+}
+.modal-nav button:hover { border-color:var(--amber); color:#ef9a62; }
+
+@media (max-width:900px) {
+  .hero-grid,.about-grid,.inquire-grid { grid-template-columns:1fr; gap:45px; }
+  .hero { min-height:auto; padding:90px 0; }
+  .hero-copy { max-width:620px; }
+  .gallery { grid-template-columns:1fr 1fr; gap:55px 18px; }
+  .art-card:nth-child(n) { grid-column:auto; margin-top:0; width:auto; justify-self:stretch; }
+  .art-card:nth-child(1),.art-card:nth-child(4),.art-card:nth-child(5),.art-card:nth-child(8) { grid-column:span 2; }
+  .art-card:nth-child(2),.art-card:nth-child(3),.art-card:nth-child(6),.art-card:nth-child(7),.art-card:nth-child(9),.art-card:nth-child(10) { grid-column:span 1; }
+  .art-card:nth-child(1),.art-card:nth-child(4),.art-card:nth-child(5),.art-card:nth-child(8) { width:62%; justify-self:center; }
+  .art-card:nth-child(2),.art-card:nth-child(3),.art-card:nth-child(6),.art-card:nth-child(7) { width:86%; justify-self:center; }
+  .art-card:nth-child(9),.art-card:nth-child(10) { width:80%; justify-self:center; }
+  .modal-panel { grid-template-columns:1fr; }
+  .modal-image img { max-height:60vh; }
+}
+
+@media (max-width:600px) {
+  .container { width:min(calc(100% - 30px), var(--max)); }
+  .nav { height:68px; }
+  .brand span { display:none; }
+  .nav-links { gap:16px; font-size:9px; }
+  .hero h1 { font-size:70px; }
+  .hero { padding:75px 0 90px; }
+  .section-head { display:block; }
+  .section-note { margin-top:20px; }
+  .gallery { display:block; }
+  .art-card { margin:0 0 55px !important; }
+  .art-card:nth-child(even) { width:80%; margin-left:auto !important; }
+  .art-card:nth-child(odd) { width:88%; }
+  .art-card:nth-child(2),.art-card:nth-child(3),.art-card:nth-child(7) { width:64%; }
+  .art-card:nth-child(9),.art-card:nth-child(10) { width:74%; }
+  .about,.inquire { padding:90px 0; }
+  .bio-details,.form { grid-template-columns:1fr; }
+  .field.full { grid-column:auto; }
+  .submit { grid-column:auto; width:100%; }
+  footer { display:block; line-height:2; }
+  .modal-inner { padding:70px 18px 30px; }
+  .modal-info h3 { font-size:52px; }
+}
